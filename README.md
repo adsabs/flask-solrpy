@@ -1,4 +1,39 @@
 flask-solrpy
 ============
 
-Flask extension for the solrpy module
+Flask extension for the solrpy module: http://packages.python.org/solrpy/
+
+== USAGE ==
+
+{{{
+from flask import Flask
+from flask.ext.solrpy import FlaskSolrpy 
+
+app = Flask(__name__)
+
+[configure app...]
+
+solr = FlaskSolrpy()
+solr.init_app(app)
+
+}}}
+
+... then in your request contexts
+
+{{{
+r = g.solr.query("foo OR bar")
+}}}
+
+The following app.config settings are recognized:
+* SOLR_URL (required)
+* SOLR_PERSISTENT
+* SOLR_TIMEOUT
+* SOLR_POST_HEADERS
+* SOLR_MAX_RETRIES
+* SOLR_SSL_CRED
+* SOLR_HTTP_BASIC_AUTH
+
+The SOLR_HTTP_BASIC_AUTH and SOLR_SSL_CRED values should be tuples containing
+('http_auth','http_pass') and ('ssl_key','ssl_cert') respectively. All settings
+correspond to the constructor args to solrpy's SolrConnection class. See
+http://packages.python.org/solrpy/reference.html#connections
