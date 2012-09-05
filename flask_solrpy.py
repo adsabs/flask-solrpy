@@ -59,10 +59,7 @@ class FlaskSolrpy(object):
             self.solr = None
             
     def init_app(self, app):
-        try:
-            self.solr = _create_solr_connection(app)
-        except Exception, e:
-            raise SolrConnectionError("%s: %s" % (type(e), str(e)))
+        self.solr = _create_solr_connection(app)
         app.before_request(self.request_start)
         
     def request_start(self):
