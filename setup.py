@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name='Flask-Solrpy',
-    version='0.1',
+    version='0.1.1',
     url='http://github.com/flask-solrpy',
     license='MIT',
     author='Jay Luker',
