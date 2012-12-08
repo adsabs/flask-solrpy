@@ -37,7 +37,7 @@ def _create_solr_connection(app):
         except Exception, e:
             raise SolrConfigurationError("Bad SOLR_HTTP_BASIC_AUTH value: %s" % (str(e)))
         
-    return SolrConnection(
+    solr = SolrConnection(
                 app.config['SOLR_URL'], 
                 persistent=app.config['SOLR_PERSISTENT'],
                 timeout=app.config['SOLR_TIMEOUT'],
@@ -45,6 +45,11 @@ def _create_solr_connection(app):
                 max_retries=app.config['SOLR_MAX_RETRIES'],
                 **xtra_kwargs
                 )
+    
+    if (app.config.has_key('SOLR_ARG_SEPARATOR')):
+        solr.select.arg_separator = app.config['SOLR_ARG_SEPARATOR']
+        
+    return solr
         
 class FlaskSolrpy(object):
     """
